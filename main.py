@@ -29,8 +29,8 @@ def zadanie_1():
     glColor3f(0.0, 0.0, 1.0)
     glEnd()
 
-def zadanie_2(x, y, a, b):
-    #założyłam, że (x,y) będą wierzchołkiem prostokąta
+#wersja, że (x,y) będą wierzchołkiem prostokąta
+def zadanie_2_1(x, y, a, b):
     if(x>=0):
         x2 = x - a
         x3 = x2
@@ -66,12 +66,84 @@ def zadanie_2(x, y, a, b):
     glColor3f(0.0, 0.0, 0.0)
     glEnd()
 
+#wersja, że (x,y) będą środkiem prostokąta
+def zadanie_2_2(x, y, a, b):
+    a=0.5*a
+    b=0.5*b
+
+    glBegin(GL_TRIANGLES)
+    glVertex2f(x+a, y+b)
+    glColor3f(0.0, 0.0, 0.0)
+    glVertex2f(x+a, y-b)
+    glColor3f(0.0, 0.0, 0.0)
+    glVertex2f(x-a, y-b)
+    glColor3f(0.0, 0.0, 0.0)
+    glEnd()
+
+    glBegin(GL_TRIANGLES)
+    glVertex2f(x+a, y+b)
+    glColor3f(0.0, 0.0, 0.0)
+    glVertex2f(x-a, y+b)
+    glColor3f(0.0, 0.0, 0.0)
+    glVertex2f(x-a, y-b)
+    glColor3f(0.0, 0.0, 0.0)
+    glEnd()
+
+def zadanie_2_b(x, y, a):
+    
+    a=0.5*a
+    b=a
+
+    glBegin(GL_TRIANGLES)
+    glVertex2f(x+a, y+b)
+    glColor3f(1.0, 1.0, 1.0)
+    glVertex2f(x+a, y-b)
+    glColor3f(1.0, 1.0, 1.0)
+    glVertex2f(x-a, y-b)
+    glColor3f(1.0, 1.0, 1.0)
+    glEnd()
+
+    glBegin(GL_TRIANGLES)
+    glVertex2f(x+a, y+b)
+    glColor3f(1.0, 1.0, 1.0)
+    glVertex2f(x-a, y+b)
+    glColor3f(1.0, 1.0, 1.0)
+    glVertex2f(x-a, y-b)
+    glColor3f(1.0, 1.0, 1.0)
+    glEnd()    
 
 def zadanie_3(x, y, a, b, d):
     if(d != 0):
         a*=d
         b*=d
-    zadanie_2(x, y, a, b)    
+    zadanie_2(x, y, a, b) 
+
+def zadanie_4(a, stopen_samopodobniestwa):
+    zadanie_2_2(0,0,a,a)
+    zadanie_2_b(0,0,a*0.33)
+    x=a*0.33
+
+    zadanie_2_b(0+x,0+x,x*0.33)
+    zadanie_2_b(0+x,0-x,x*0.33)
+    zadanie_2_b(0-x,0+x,x*0.33)
+    zadanie_2_b(0-x,0-x,x*0.33)
+    zadanie_2_b(0+x,0,x*0.33)
+    zadanie_2_b(0-x,0,x*0.33)
+    zadanie_2_b(0,0-x,x*0.33)
+    zadanie_2_b(0,0+x,x*0.33)
+    x=x*0.33
+    o = x
+    for i in range(8):
+        zadanie_2_b(0+x+x,0+x+x,x*0.33)
+        zadanie_2_b(0+x+x,0-x-x,x*0.33)
+        zadanie_2_b(0-x-x,0+x+x,x*0.33)
+        zadanie_2_b(0-x-x,0-x-x,x*0.33)
+        zadanie_2_b(0+x+x,0,x*0.33)
+        zadanie_2_b(0-x-x,0,x*0.33)
+        zadanie_2_b(0,0-x-x,x*0.33)
+        zadanie_2_b(0,0+x+x,x*0.33)
+       
+
 
 def startup():
     # Ustawiamy wartość koloru, do jakiego będzie czyszczony bufor.
@@ -87,9 +159,10 @@ def render(time):
     # W tym przykładzie jest to wyczyszczenie ramki w pamięci – glClear()
     glClear(GL_COLOR_BUFFER_BIT)
     #zadanie_1()
-    zadanie_2(0.0, 0.0, 60.0, 70.0)
+    #zadanie_2_1(0.0, 0.0, 60.0, 70.0)
+    #zadanie_2_2(0.0, 0.0, 60.0, 70.0)
     #zadanie_3(50.0, 50.0, 60.0, 70.0, 1.5)
-    #zadanie_4
+    zadanie_4(100, 1)
     # Następnie zawartość pamięci jest przesyłana do wyświetlenia – glFlush()
     glFlush()
 
