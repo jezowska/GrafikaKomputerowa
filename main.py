@@ -118,32 +118,40 @@ def zadanie_3(x, y, a, b, d):
         b*=d
     zadanie_2(x, y, a, b) 
 
-def zadanie_4(a, stopen_samopodobniestwa):
+def zadanie_4_p(x, y, a):
+    a=a*0.33
+    zadanie_2_b(x+a, y+a, a*0.33)
+    zadanie_2_b(x+a, y-a, a*0.33)
+    zadanie_2_b(x-a, y+a, a*0.33)
+    zadanie_2_b(x-a, y-a, a*0.33)
+    zadanie_2_b(x, y+a, a*0.33)
+    zadanie_2_b(x, y-a, a*0.33)
+    zadanie_2_b(x+a, y, a*0.33)
+    zadanie_2_b(x-a, y, a*0.33)
+
+def zadanie_4(a, ss):
     zadanie_2_2(0,0,a,a)
     zadanie_2_b(0,0,a*0.33)
+    
+    #zadanie_2_b(x+a, y+a, a*0.33)
+    #zadanie_2_b(x+a, y-a, a*0.33)
+    #zadanie_2_b(x-a, y+a, a*0.33)
+    #zadanie_2_b(x-a, y-a, a*0.33)
+    #zadanie_2_b(0, y+a, a*0.33)
+    #zadanie_2_b(0, y-a, a*0.33)
+    #zadanie_2_b(x+a, 0, a*0.33)
+    #zadanie_2_b(x-a, 0, a*0.33)
+
+    zadanie_4_p(0,0,a)
     x=a*0.33
-
-    zadanie_2_b(0+x,0+x,x*0.33)
-    zadanie_2_b(0+x,0-x,x*0.33)
-    zadanie_2_b(0-x,0+x,x*0.33)
-    zadanie_2_b(0-x,0-x,x*0.33)
-    zadanie_2_b(0+x,0,x*0.33)
-    zadanie_2_b(0-x,0,x*0.33)
-    zadanie_2_b(0,0-x,x*0.33)
-    zadanie_2_b(0,0+x,x*0.33)
-    x=x*0.33
-    o = x
-    for i in range(8):
-        zadanie_2_b(0+x+x,0+x+x,x*0.33)
-        zadanie_2_b(0+x+x,0-x-x,x*0.33)
-        zadanie_2_b(0-x-x,0+x+x,x*0.33)
-        zadanie_2_b(0-x-x,0-x-x,x*0.33)
-        zadanie_2_b(0+x+x,0,x*0.33)
-        zadanie_2_b(0-x-x,0,x*0.33)
-        zadanie_2_b(0,0-x-x,x*0.33)
-        zadanie_2_b(0,0+x+x,x*0.33)
-       
-
+    zadanie_4_p(0+x, 0+x, x)
+    zadanie_4_p(0+x, 0-x, x)
+    zadanie_4_p(0-x, 0+x, x)
+    zadanie_4_p(0-x, 0-x, x)
+    zadanie_4_p(0, 0+x, x)
+    zadanie_4_p(0, 0-x, x)
+    zadanie_4_p(0+x, 0, x)
+    zadanie_4_p(0-x, 0, x)
 
 def startup():
     # Ustawiamy wartość koloru, do jakiego będzie czyszczony bufor.
