@@ -1,14 +1,11 @@
 #!/usr/bin/env python3
 import sys
-
 from glfw.GLFW import *
-
 from OpenGL.GL import *
 from OpenGL.GLU import *
-
 from PIL import Image
 
-
+hide_wall = False
 viewer = [0.0, 0.0, 10.0]
 
 theta = 0.0
@@ -32,6 +29,7 @@ att_constant = 1.0
 att_linear = 0.05
 att_quadratic = 0.001
 
+# kwadrat
 def square():
     #podstawa
     glBegin(GL_TRIANGLES)
@@ -52,9 +50,9 @@ def square():
     glVertex3f(3.0, -3.0, 0.0)
     glEnd()
 
-#ostrosłup
+# ostrosłup
 def pyramid():
-
+    global hide_wall
     #podstawa
     glBegin(GL_TRIANGLES)
     glTexCoord2f(0.0, 0.0)
@@ -75,14 +73,16 @@ def pyramid():
     glEnd()
 
     #bok1
-    glBegin(GL_TRIANGLES)
-    glTexCoord2f(0.0, 1.0)
-    glVertex3f(-3.0, 3.0, 0.0)
-    glTexCoord2f(0.0, 0.0) 
-    glVertex3f(-3.0, -3.0, 0.0)
-    glTexCoord2f(0.5, 0.5)
-    glVertex3f(0.0, 0.0, 3.0)
-    glEnd()
+    #po naciśnieciu klawisza H znika jedna ze ścian
+    if(hide_wall == False):
+        glBegin(GL_TRIANGLES)
+        glTexCoord2f(0.0, 1.0)
+        glVertex3f(-3.0, 3.0, 0.0)
+        glTexCoord2f(0.0, 0.0) 
+        glVertex3f(-3.0, -3.0, 0.0)
+        glTexCoord2f(0.5, 0.5)
+        glVertex3f(0.0, 0.0, 3.0)
+        glEnd()
 
     #bok2
     glBegin(GL_TRIANGLES)
@@ -115,7 +115,6 @@ def pyramid():
     glEnd()
 
 
-
 def startup():
     update_viewport(None, 400, 400)
     glClearColor(0.0, 0.0, 0.0, 1.0)
@@ -145,7 +144,8 @@ def startup():
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
 
-    image = Image.open("belcia.tga")
+    # a tutaj moja kotecza, celebrytką nie jest, ale i tak jest urocza
+    image = Image.open("bella.tga")
 
     glTexImage2D(
         GL_TEXTURE_2D, 0, 3, image.size[0], image.size[1], 0,
@@ -171,7 +171,7 @@ def render(time):
 
     glRotatef(theta, 0.0, 1.0, 0.0)
 
-
+    #square()
     pyramid()
 
     glFlush()
@@ -196,8 +196,12 @@ def update_viewport(window, width, height):
 
 
 def keyboard_key_callback(window, key, scancode, action, mods):
+    global hide_wall
     if key == GLFW_KEY_ESCAPE and action == GLFW_PRESS:
         glfwSetWindowShouldClose(window, GLFW_TRUE)
+    if key == GLFW_KEY_H and action == GLFW_PRESS:
+        hide_wall = not hide_wall
+        print(hide_wall)
 
 
 def mouse_motion_callback(window, x_pos, y_pos):
