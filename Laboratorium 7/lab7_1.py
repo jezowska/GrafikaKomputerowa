@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+# Laboratorium 7 
+# Zadanie 1
+# Daria Jeżowska 252731
+
 import sys
 
 from glfw.GLFW import *
@@ -18,7 +22,7 @@ vertex_buffer = None
 
 P_matrix = None
 
-#utworzenie zmiennej wyjściowej, wejściowej oraz zmiana koloru 
+#utworzenie zmiennej wyjściowej, wejściowej oraz zmiana koloru vertex_color
 def compile_shaders():
     vertex_shader_source = """
         #version 330 core
@@ -36,7 +40,7 @@ def compile_shaders():
             vertex_color = vec4(0.98, 0.70, 0.78, 0.0);
         }
     """
-
+    #przypisanie dla color vertex_color z opisanym kolorem
     fragment_shader_source = """
         #version 330 core
 

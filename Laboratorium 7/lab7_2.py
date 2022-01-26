@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+# Laboratorium 7 
+# Zadanie 2
+# Daria Jeżowska 252731
+
 import sys
 
 from glfw.GLFW import *
@@ -37,7 +41,7 @@ def compile_shaders():
             vertex_color = vertex_color_in;
         }
     """
-
+    
     fragment_shader_source = """
         #version 330 core
 
@@ -76,9 +80,6 @@ def compile_shaders():
     if not success:
         print('Program linking error:')
         print(glGetProgramInfoLog(program).decode('UTF-8'))
-
-    glDeleteShader(vertex_shader)
-    glDeleteShader(fragment_shader)
 
     glDeleteShader(vertex_shader)
     glDeleteShader(fragment_shader)
@@ -154,12 +155,70 @@ def startup():
         -0.25, +0.25, -0.25,
     ], dtype='float32')
 
+    #tablica kolorów
+    vertex_colors = numpy.array([
+        0.90, 0.60, 0.70, 
+        0.90, 0.60, 0.70, 
+        0.90, 0.60, 0.70,
+
+        0.90, 0.60, 0.70, 
+        0.90, 0.60, 0.70, 
+        0.90, 0.60, 0.70,
+
+        0.30, 0.60, 0.90, 
+        0.30, 0.60, 0.90, 
+        0.30, 0.60, 0.90,
+
+        0.30, 0.60, 0.90, 
+        0.30, 0.60, 0.90, 
+        0.30, 0.60, 0.90,
+
+        0.10, 0.60, 0.10, 
+        0.10, 0.60, 0.10, 
+        0.10, 0.60, 0.10,
+
+        0.10, 0.60, 0.10, 
+        0.10, 0.60, 0.10, 
+        0.10, 0.60, 0.10,
+
+        0.00, 0.41, 0.32, 
+        0.00, 0.41, 0.32, 
+        0.00, 0.41, 0.32,
+
+        0.00, 0.41, 0.32, 
+        0.00, 0.41, 0.32, 
+        0.00, 0.41, 0.32,
+
+        1.00, 0.41, 0.32, 
+        1.00, 0.41, 0.32, 
+        1.00, 0.41, 0.32,
+
+        1.00, 0.41, 0.32, 
+        1.00, 0.41, 0.32, 
+        1.00, 0.41, 0.32,
+
+        1.00, 1.00, 0.00, 
+        1.00, 1.00, 0.00, 
+        1.00, 1.00, 0.00,
+
+        1.00, 1.00, 0.00, 
+        1.00, 1.00, 0.00, 
+        1.00, 1.00, 0.00,
+
+    ], dtype='float32')
+
     vertex_buffer = glGenBuffers(1)
     glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer)
     glBufferData(GL_ARRAY_BUFFER, vertex_positions, GL_STATIC_DRAW)
-
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, None)
     glEnableVertexAttribArray(0)
+
+    #wywołanie funkcji umożliwiającej widoczność różnych kolorów na sześcianie
+    vertex_colros_buffer = glGenBuffers(1)
+    glBindBuffer(GL_ARRAY_BUFFER, vertex_colros_buffer)
+    glBufferData(GL_ARRAY_BUFFER, vertex_colors, GL_STATIC_DRAW)
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, None)
+    glEnableVertexAttribArray(1)
 
 
 def shutdown():
@@ -243,7 +302,6 @@ def main():
     shutdown()
 
     glfwTerminate()
-
 
 if __name__ == '__main__':
     main()
